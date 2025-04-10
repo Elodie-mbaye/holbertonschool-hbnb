@@ -1,56 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Places</title>
-    <link rel="stylesheet" href="assets/styles/styles.css">
-    <link rel="icon" href="assets/images/icon.png">
+  <meta charset="UTF-8" />
+  <title>Add Review</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <div class="logo-login">
+  <header>
+    <img src="logo.png" class="logo" alt="App Logo" />
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html" class="login-button">Login</a>
+    </nav>
+  </header>
 
-            <a href="index.html"><img src="assets/images/logo.png" alt="index"></a>
+  <main>
+    <h1>Add a Review</h1>
+    <form id="review-form">
+      <label for="review-text">Your Review:</label><br />
+      <textarea id="review-text" required></textarea><br />
+      <button type="submit">Submit</button>
+    </form>
+  </main>
 
-            <a href="login.html" id="login-link">
-                <button class="login-button">
-                  <span class="login-text">Login</span>
-                  <img src="assets/images/login.png" alt="login-logo" class="icon-login">
-                </button>
-              </a>
-            <a href="login.html" id="logout-link">
-                <button class="login-button">
-                  <span class="login-text">Logout</span>
-                  <img src="assets/images/logout.svg" alt="login-logo" class="icon-logout">
-                </button>
-            </a>
-        </div>
-    </header>
-    <main>
-        <!-- Add something to idfentify the place you're reviewing -->
-        <form id="review-form">
-            <h2>Add a Review</h2>
+  <footer>
+    <p>© 2025 All rights reserved</p>
+  </footer>
 
-            <label for="review">Your Review:</label>
-            <textarea id="review" name="review" placeholder="Write your review here" required></textarea>
-
-            <label for="rating">Rating:</label>
-            <select id="rating" name="rating" required>
-                <option value="">Select a rating</option>
-                <option value="1">1 ⭐</option>
-                <option value="2">2 ⭐⭐</option>
-                <option value="3">3 ⭐⭐⭐</option>
-                <option value="4">4 ⭐⭐⭐⭐</option>
-                <option value="5">5 ⭐⭐⭐⭐⭐</option>
-            </select>
-            
-            <button type="submit">Submit Review</button>
-        </form>
-    </main>
-    <script src="assets/js/scripts.js"></script>
+  <script src="scripts.js"></script>
 </body>
-<footer>
-    <p>&copy; HBNB Vieilledent Adrien - Holberton School - C#25 - All rights reserved</p>
-</footer>
 </html>

@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Places</title>
-    <link rel="stylesheet" href="assets/styles/styles.css">
-    <link rel="icon" href="assets/images/icon.png">
+  <meta charset="UTF-8" />
+  <title>Place Details</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <div class="logo-login">
+  <header>
+    <img src="logo.png" class="logo" alt="App Logo" />
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html" class="login-button">Login</a>
+    </nav>
+  </header>
 
-            <a href="index.html"><img src="assets/images/logo.png" alt="index"></a>
+  <main>
+    <section id="place-details" class="place-details">
+      <!-- Details will be populated by JavaScript -->
+    </section>
 
-            <a href="login.html" id="login-link">
-                <button class="login-button">
-                  <span class="login-text">Login</span>
-                  <img src="assets/images/login.png" alt="login-logo" class="icon-login">
-                </button>
-              </a>
-            <a href="login.html" id="logout-link">
-                <button class="login-button">
-                  <span class="login-text">Logout</span>
-                  <img src="assets/images/logout.svg" alt="login-logo" class="icon-logout">
-                </button>
-            </a>
-        </div>
-    </header>
-    <main>
+    <section id="reviews-list">
+      <!-- Reviews will be added dynamically here -->
+    </section>
 
-        <section id="place-details">
-            <!-- Place details will be populated dynamically -->
-        </section>
+    <section id="add-review" style="display: none;">
+      <a href="add_review.html">Add a Review</a>
+    </section>
+  </main>
 
-        <section id="reviews">
-            <!-- Reviews will be populated dynamically -->
-        </section>
+  <footer>
+    <p>© 2025 All rights reserved</p>
+  </footer>
 
-        <section id="add-review">
-        </section>
-    </main>
-    <script src="assets/js/scripts.js"></script>
-    <footer>
-        <p>&copy; HBNB Vieilledent Adrien - Holberton School - C#25 - All rights reserved</p>
-    </footer>
+  <script src="scripts.js"></script>
 </body>
 </html>
