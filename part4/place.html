@@ -1,4 +1,3 @@
-<!-- place.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,31 +32,39 @@
       if (!token) {
         document.getElementById('add-review').style.display = 'none';
       } else {
-        document.getElementById('add-review').style.display = 'block';
+        const addReview = document.getElementById('add-review');
+        addReview.querySelector('a').href = `add_review.html?id=${placeId}`;
+        addReview.style.display = 'block';
       }
-
+      
       fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
         .then(res => res.json())
         .then(place => {
           const container = document.getElementById('place-details');
           container.innerHTML = `
             <div class="place-info">
-              <h2>${place.name}</h2>
-              <p><strong>Host:</strong> ${place.host}</p>
-              <p><strong>Price per night:</strong> $${place.price_per_night}</p>
-              <p><strong>Description:</strong> ${place.description}</p>
-              <p><strong>Amenities:</strong> ${place.amenities.join(', ')}</p>
+              <h2>${place.title || 'No title'}</h2>
+              <p><strong>Host:</strong> ${place.owner_id || 'Unknown'}</p>
+              <p><strong>Price per night:</strong> $${place.price || 'N/A'}</p>
+              <p><strong>Description:</strong> ${place.description || 'No description'}</p>
+              <p><strong>Amenities:</strong> ${(place.amenities || []).map(a => a.name).join(', ') || 'None'}</p>
             </div>
             <h3>Reviews</h3>
             ${(place.reviews || []).map(review => `
               <div class="review-card">
-                <p><strong>${review.user_name}:</strong></p>
+                <p><strong>User:</strong> ${review.user || 'Anonymous'}</p>
                 <p>${review.text}</p>
                 <p>Rating: ${'★'.repeat(review.rating)}</p>
-              </div>`).join('')}
+              </div>
+            `).join('') || '<p>No reviews yet.</p>'}
           `;
+        })
+        .catch(err => {
+          console.error('Failed to load place:', err);
         });
     });
 

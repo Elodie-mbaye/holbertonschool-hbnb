@@ -37,9 +37,10 @@
     document.addEventListener('DOMContentLoaded', () => {
       const token = getCookie('token');
       if (!token) {
-        window.location.href = 'index.html';
-        return;
-      }
+  const placeId = new URLSearchParams(window.location.search).get('id');
+  window.location.href = `login.html?redirect=add_review.html&id=${placeId}`;
+  return;
+}
 
       const placeId = new URLSearchParams(window.location.search).get('id');
       const form = document.getElementById('review-form');

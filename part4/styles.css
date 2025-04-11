@@ -3,104 +3,119 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
+  }
+  
+  body {
     background-color: #f0f4f8;
-    color: #2f3542;
-    line-height: 1.6;
-}
+    color: #2c3e50;
+  }
 
-header {
+  header {
     background-color: #2c3e50;
     color: #fff;
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.logo {
+  }
+  
+  .logo {
     height: 40px;
-}
-
-nav {
+  }
+  
+  nav {
     display: flex;
     gap: 1.5rem;
-}
-
-nav a, .login-button {
+  }
+  
+  nav a,
+  .login-button {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.2s ease-in-out;
-}
+  }
+  
+  nav a:hover,
+  .login-button:hover {
+    text-decoration: underline;
+  }
 
-nav a:hover, .login-button:hover {
-    color: #a5c0dd;
-}
-
-main {
+  main {
     padding: 2rem;
-}
-
-h1, h2 {
+  }
+  
+  h1, h2, h3 {
     margin-bottom: 1rem;
-    color: #1e272e;
-}
-
-label {
+  }
+  
+  label {
     font-weight: bold;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-select, textarea, input {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  
+  input, textarea, select {
     width: 100%;
-}
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
 
-.place-card,
-.review-card {
-    background-color: white;
+  .place-card,
+  .review-card,
+  .place-info {
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
     margin: 20px 0;
     padding: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
 
-.details-button, button {
+  .details-button,
+  button[type="submit"] {
     display: inline-block;
     padding: 10px 20px;
     background-color: #3498db;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 6px;
     margin-top: 10px;
     cursor: pointer;
-    transition: background-color 0.2s;
     border: none;
-}
-
-.details-button:hover, button:hover {
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .details-button:hover,
+  button[type="submit"]:hover {
     background-color: #2980b9;
-}
+  }
 
-.add-review form {
+  .add-review form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
+    margin-top: 2rem;
+  }
 
-footer {
+  footer {
     text-align: center;
     padding: 1rem;
-    background-color: #dcdde1;
-    margin-top: 2rem;
-    color: #555;
+    background-color: #dfe6e9;
+    margin-top: 3rem;
+    color: #636e72;
     font-size: 0.9rem;
-}
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    nav {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
