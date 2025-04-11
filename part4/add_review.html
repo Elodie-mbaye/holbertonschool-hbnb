@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Review</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <img src="logo.png" class="logo" alt="App Logo" />
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="login.html" class="login-button">Login</a>
-    </nav>
+    <img src="images/logo.png" alt="logo" class="logo">
+    <a href="login.html" class="login-button" id="login-link">Login</a>
   </header>
 
   <main>
-    <h1>Add a Review</h1>
+    <h2>Add a Review</h2>
     <form id="review-form">
-      <label for="review-text">Your Review:</label><br />
-      <textarea id="review-text" required></textarea><br />
-      <button type="submit">Submit</button>
+      <label for="review-text">Your Review:</label><br>
+      <textarea id="review-text" name="review-text" required></textarea><br>
+      <label for="rating">Rating:</label><br>
+      <select id="rating">
+        <option value="1">1 Star</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+      </select><br>
+      <button type="submit">Submit Review</button>
     </form>
   </main>
 
@@ -27,6 +33,46 @@
     <p>© 2025 All rights reserved</p>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = getCookie('token');
+      if (!token) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const placeId = new URLSearchParams(window.location.search).get('id');
+      const form = document.getElementById('review-form');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const text = document.getElementById('review-text').value;
+        const rating = parseInt(document.getElementById('rating').value);
+
+        const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}/reviews`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ text, rating })
+        });
+
+        if (response.ok) {
+          alert('Review submitted successfully');
+          form.reset();
+        } else {
+          alert('Failed to submit review');
+        }
+      });
+    });
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+  </script>
 </body>
 </html>

@@ -9,14 +9,12 @@ place_model = api.model('Place', {
     'title': fields.String(required=True, description='Title of the place'),
     'description': fields.String(description='Description of the place'),
     'price': fields.Float(required=True, description='Price per night'),
-    'latitude': fields.Float(required=True,
-                             description='Latitude of the place'),
-    'longitude': fields.Float(required=True,
-                              description='Longitude of the place')
+    'latitude': fields.Float(required=True, description='Latitude of the place'),
+    'longitude': fields.Float(required=True, description='Longitude of the place')
 })
 
 
-@api.route('/')
+@api.route('/', strict_slashes=False)
 class PlaceList(Resource):
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
@@ -49,7 +47,7 @@ class PlaceList(Resource):
             return {'error': str(e)}, 400
 
 
-@api.route('/<place_id>')
+@api.route('/<place_id>', strict_slashes=False)
 class PlaceResource(Resource):
     @api.response(200, 'Place details retrieved successfully')
     @api.response(404, 'Place not found')
@@ -69,14 +67,14 @@ class PlaceResource(Resource):
                 'amenities': [{
                     'id': amenity.id,
                     'name': amenity.name
-                    } for amenity in place_data.amenities],
+                } for amenity in place_data.amenities],
                 'reviews': [{
                     'id': review.id,
                     'user': review.user_id,
                     'rating': review.rating,
                     'text': review.text
-                    } for review in place_data.reviews]
-                    }, 200
+                } for review in place_data.reviews]
+            }, 200
         except ValueError as e:
             return {'error': str(e)}, 400
 
@@ -102,16 +100,16 @@ class PlaceResource(Resource):
                 return {'message': 'Place not found'}, 404
 
             return {
-                    'id': updated_place.id,
-                    'message': 'Place successfully updated'
-                }, 200
+                'id': updated_place.id,
+                'message': 'Place successfully updated'
+            }, 200
         except ValueError as e:
             return {'error': str(e)}, 400
         except KeyError as e:
             return {'error': str(e)}, 400
 
 
-@api.route('/<place_id>/amenities/<amenity_id>')
+@api.route('/<place_id>/amenities/<amenity_id>', strict_slashes=False)
 class PlaceAmenity(Resource):
     @api.response(201, 'Amenity sucessfully added to place.')
     @api.response(400, 'Invalid input data')

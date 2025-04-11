@@ -1,30 +1,22 @@
+<!-- place.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Place Details</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <img src="logo.png" class="logo" alt="App Logo" />
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="login.html" class="login-button">Login</a>
-    </nav>
+    <img src="images/logo.png" alt="logo" class="logo">
+    <a href="login.html" class="login-button" id="login-link">Login</a>
   </header>
 
   <main>
-    <section id="place-details" class="place-details">
-      <!-- Details will be populated by JavaScript -->
-    </section>
-
-    <section id="reviews-list">
-      <!-- Reviews will be added dynamically here -->
-    </section>
-
-    <section id="add-review" style="display: none;">
-      <a href="add_review.html">Add a Review</a>
+    <div id="place-details" class="place-details"></div>
+    <section id="add-review" style="display: none">
+      <a href="add_review.html" class="details-button">Add a Review</a>
     </section>
   </main>
 
@@ -32,6 +24,48 @@
     <p>© 2025 All rights reserved</p>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = getCookie('token');
+      const urlParams = new URLSearchParams(window.location.search);
+      const placeId = urlParams.get('id');
+
+      if (!token) {
+        document.getElementById('add-review').style.display = 'none';
+      } else {
+        document.getElementById('add-review').style.display = 'block';
+      }
+
+      fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(place => {
+          const container = document.getElementById('place-details');
+          container.innerHTML = `
+            <div class="place-info">
+              <h2>${place.name}</h2>
+              <p><strong>Host:</strong> ${place.host}</p>
+              <p><strong>Price per night:</strong> $${place.price_per_night}</p>
+              <p><strong>Description:</strong> ${place.description}</p>
+              <p><strong>Amenities:</strong> ${place.amenities.join(', ')}</p>
+            </div>
+            <h3>Reviews</h3>
+            ${(place.reviews || []).map(review => `
+              <div class="review-card">
+                <p><strong>${review.user_name}:</strong></p>
+                <p>${review.text}</p>
+                <p>Rating: ${'★'.repeat(review.rating)}</p>
+              </div>`).join('')}
+          `;
+        });
+    });
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+  </script>
 </body>
 </html>
